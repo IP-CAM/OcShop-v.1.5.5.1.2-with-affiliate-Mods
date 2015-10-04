@@ -18,6 +18,15 @@ class ControllerAccountRegister extends Controller {
     	if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$this->model_account_customer->addCustomer($this->request->post);
 
+			// my code
+			if( $_GET['tracking']) setcookie('tracking', $_GET['tracking']);
+			// print_r($_COOKIE);
+			// exit;
+			$this->load->model('affiliate/affiliate');
+			$this->model_affiliate_affiliate->addAffiliate($this->request->post);
+
+			// my code
+
 			$this->customer->login($this->request->post['email'], $this->request->post['password']);
 			
 			unset($this->session->data['guest']);
